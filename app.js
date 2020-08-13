@@ -100,7 +100,7 @@ function addEmployee() {
                         message: "What is the employee's role?",
                         choices: roleArray
                     },
-                ]).then(function(answer){
+                ]).then(function (answer) {
                     connection.query(
                         "INSERT INTO employee SET ?", {
                         first_name: answer.first_name,
@@ -113,4 +113,45 @@ function addEmployee() {
                         })
                 })
         });
+}
+
+function addRole() {
+    connection.query(
+        "SELECT * FROM role",
+        function (err, res) {
+            if (err) throw err;
+            let titleArray = [];
+            titleArray.push(res[0].title);
+            inquirer
+                .prompt([
+                    {
+                        name: "title",
+                        type: "input",
+                        message: "what is the role you would like to create?",
+                    },
+                    {
+                        name: "salary",
+                        type: "input",
+                        message: "what is the salary for this role?",
+                    },
+                    {
+                        name: "department_id",
+                        type: "input",
+                        message: "what is the department id for this role?",
+                    },
+                ]).then(function (answer) {
+                    connection.query(
+                        "INSERT INTO role SET ?", {
+                            title: answer.title,
+                            salary: answer.salary,
+                            department_id: answer.department_id,
+                        },
+                        function (err, res) {
+                            if (err) throw err;
+                            start();
+                        }
+                    )
+                })
+        }
+    )
 }
