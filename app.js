@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 
+let roleArray = []
 // create the connection information for the sql database
 var connection = mysql.createConnection({
     host: "localhost",
@@ -52,18 +53,64 @@ function start() {
                 case "Add a department":
                     addDepartment();
                     break;
+
                 case "view all employees":
                     viewAllEmployees();
                     break;
+
                 case "view all departments":
                     viewAllDepartments();
                     break;
+
                 case "view all Roles":
                     viewAllRoles();
                     break;
+
                 case "Update employee role":
                     updateEmployeeRole();
                     break;
             }
+        });
+}
+
+function addEmployee() {
+    connection.query("SELECT * FROM role",
+        function (err, res) {
+            if (err) throw err;
+
+            for (let i = 0; i < res.length; i++) {
+                const roleList = res[i].title;
+                roleArray.push(roleList);
+            }
+            inquirer
+                .prompt([
+                    {
+                        name: "first_name",
+                        type: "input",
+                        message: "What is the employee's first name?"
+                    },
+                    {
+                        name: "last_name",
+                        type: "input",
+                        message: "What is the employees last name?"
+                    },
+                    {
+                        name: "role_id",
+                        type: "rawlist",
+                        message: "What is the employee's role?",
+                        choices: roleArray
+                    },
+                ]).then(function(answer){
+                    connection.query(
+                        "INSERT INTO employee SET ?", {
+                        first_name: answer.first_name,
+                        last_name: answer.last_name,
+                        role_id: answer.role_id,
+                    },
+                        function (err, res) {
+                            if (err) throw err;
+                            start();
+                        })
+                })
         });
 }
