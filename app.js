@@ -142,10 +142,45 @@ function addRole() {
                 ]).then(function (answer) {
                     connection.query(
                         "INSERT INTO role SET ?", {
-                            title: answer.title,
-                            salary: answer.salary,
-                            department_id: answer.department_id,
-                        },
+                        title: answer.title,
+                        salary: answer.salary,
+                        department_id: answer.department_id,
+                    },
+                        function (err, res) {
+                            if (err) throw err;
+                            start();
+                        }
+                    )
+                })
+        }
+    )
+}
+
+function addDepartment() {
+    connection.query(
+        "SELECT * FROM departments",
+        function (err, res) {
+            if (err) throw err;
+            let departmentArray = [];
+            departmentArray.push(res[0].name);
+            inquirer
+                .prompt([
+                    {
+                        name: "id",
+                        type: "input",
+                        message: "What is the id of the department you would like to make?"
+                    },
+                    {
+                        name: "name",
+                        type: "input",
+                        message: "What is the name of the department you would like to make?"
+                    },
+                ]).then(function (answer) {
+                    connection.query(
+                        "INSERT INTO departments SET ?", {
+                        id: answer.id,
+                        name: answer.name,
+                    },
                         function (err, res) {
                             if (err) throw err;
                             start();
