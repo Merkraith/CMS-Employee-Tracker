@@ -220,3 +220,52 @@ function viewAllRoles() {
             start();
         });
 }
+
+function updateEmployeeRole() {
+    connection.query(
+        "SELECT * FROM employee",
+        function (err, emp) {
+            if (err) throw err;
+            for (let i = 0; i < emp.length; i++) {
+                let employeeList = emp[i].id + ' ' + emp[i].first_name + ' ' + emp[i].last_name + ' ' + emp[i].role_id + ' ';
+                employeeArray.push(employeeList);
+            }
+        }
+    )
+    connection.query("SELECT * FROM role",
+        function (err, res) {
+            if (err) throw err;
+            for (let i = 0; i < res.length; i++) {
+                let roleList = res[i].title;
+                console.log(roleList + "from role query");
+                roleArray.push(roleList);
+            }
+            askRole();
+        })
+
+    function askRole() {
+        inquirer
+            .prompt([
+                {
+                    name: "employee",
+                    type: "list",
+                    message: "What is the employee's name?",
+                    choices: employeeArray
+                },
+                {
+                    name: "role_id",
+                    type: "list",
+                    message: "What is the employee's NEW role?",
+                    choices: roleArray
+                },
+            ]).then(function (answer) {
+                connection.query('UPDATE employee SET role_id = ${answer.role_id} WHERE'
+                    ,
+                    function (err, res) {
+                        if (err) throw err;
+                        console.table(res.affectedRows);
+                        start();
+                    });
+            })
+    }
+}
