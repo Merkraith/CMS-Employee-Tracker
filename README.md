@@ -7,8 +7,6 @@
 
 # Title: CMS-Employee-Tracker
 
-
-
 ## Description
   This is a node based "Content Management System" that manages a companies employees.   In the system you can add empoloyees, roles and departments. Also you can view employees, roles, departments and update employee roles.
 
@@ -20,10 +18,12 @@ npm i mysql
 
 ## GIF Demo
 
+### Link to watch gif on Google Drive
 https://drive.google.com/file/d/1jf87VaOjzA0CX9xT9yZN4PxYTz5HFFaZ/view
 
-![CMSEmployeeTracker](/CMS Employee Tracker.gif)
+### Animated Gif of demo
 
+![CMSEmployeeTracker](/CMS Employee Tracker.gif)
 
 # Author: Merkraith
 
