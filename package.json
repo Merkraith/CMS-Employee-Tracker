@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/Merkraith/CMS-Employer-Tracker#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "inquirer": "^7.2.0",
     "mysql": "^2.18.1",
-    "dotenv": "^8.2.0",
     "node-asciimo": "^0.3.2"
   }
 }

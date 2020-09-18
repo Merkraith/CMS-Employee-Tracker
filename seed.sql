@@ -21,7 +21,7 @@ CREATE TABLE employee (
   first_name VARCHAR(30) NOT NULL,
   last_name VARCHAR(30) NOT NULL,
   roles_id INT NULL,
-  PRIMARY KEY (employee_id)  
+  PRIMARY KEY (employee_id)
 );
 
 SELECT * FROM department;
@@ -39,5 +39,5 @@ VALUES (1, "Software Engineer", 1), (2, "Full Stack Developer", 1),
 INSERT INTO employee (employee_id, first_name, last_name, roles_id)
 VALUES (1, "Scarlett", "Johanson", 1), (2, "Paul", "Rudd", 2), (3, "Samuel", "Jackson", 3), (4, "Vin", "Diesel", 1), 
 (5, "Chris", "Pratt", 1), (6, "Robert", "Downey Jr", 2), (7, "Bradley", "Cooper", 3), (8, "Jeff", "Goldblum", 2), 
-(9, "Chris", "Hemsworth", 1), (10, "Jon", "Favreu", 2), (11, "Chris", "Evans", 3), (12, "Jeff", "Bridges", 3),
+(9, "Chris", "Hemsworth", 1), (10, "Jon", "Favreu", 2), (11, "Chris", "Evans", 3), (12, "Jeff", "Bridges", 3);
 
