@@ -21,9 +21,12 @@ npm i mysql
 ### Link to watch gif on Google Drive
 https://drive.google.com/file/d/1jf87VaOjzA0CX9xT9yZN4PxYTz5HFFaZ/view
 
-### Animated Gif of demo
+## Screenshots
 
-![CMSEmployeeTracker](/CMS Employee Tracker.gif)
+![CMS1](/cms1.png)
+
+![CMS2](/cms2.png)
+
 
 # Author: Merkraith
 
@@ -32,4 +35,3 @@ mark.heil1122@gmail.com
 ![alt text](https://github.com/Merkraith.png)
 
 
-# CMS-Employer-Tracker
