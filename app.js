@@ -14,15 +14,23 @@ let departmentListArray = [];
 const connection = mysql.createConnection({
     host: "localhost",
 
-    // Your port; if not 3306
     port: 3306,
 
-    // Your username
     user: "root",
 
-    // Your password
     password: process.env.DB_PASSWORD,
     database: "employees_DB"
+});
+
+const connectionTwo = mysql.createConnection({
+    host: 'localhost',
+
+    port: 3306,
+
+    user: 'root',
+
+    password: process.env.DB_PASSWORD,
+    database: 'employees_DB'
 });
 
 // connect to the mysql server and sql database
@@ -36,54 +44,54 @@ connection.connect(function (err) {
 
 function start() {
     inquirer
-    .prompt([
-        {
-            type: "list",
-            message: "What would you like to do?",
-            name: "decision",
-            choices: [
-                "View all employees",
-                "View all roles",
-                "View all departments",
-                "Add an employee",
-                "Add a department",
-                "Add a role",
-                "Update employee roles",
-            ]
-        }
-    ]).then(function (data) {
-        console.log("Success!")
-        switch (data.decision) {
-            case "View all employees":
-                console.log("all employees");
-                viewAllEmployees();
-                break;
-            case "View all departments":
-                console.log("all departments");
-                viewAllDepartments();
-                break;
-            case "Add an employee":
-                console.log("addition of employee");
-                addEmployee();
-                break;
-            case "Add a role":
-                console.log("addition of role");
-                addRole();
-                break;
-            case "Add a department":
-                console.log("addition of department");
-                addDepartment();
-                break;
-            case "Update employee roles":
-                console.log("update the roles");
-                updateEmployeeRole();
-                break;
-            case "View all roles":
-                console.log("roles");
-                viewAllRoles();
-                break;
-        }
-    })
+        .prompt([
+            {
+                type: "list",
+                message: "What would you like to do?",
+                name: "decision",
+                choices: [
+                    "View all employees",
+                    "View all roles",
+                    "View all departments",
+                    "Add an employee",
+                    "Add a department",
+                    "Add a role",
+                    "Update employee roles",
+                ]
+            }
+        ]).then(function (data) {
+            console.log("Success!")
+            switch (data.decision) {
+                case "View all employees":
+                    console.log("all employees");
+                    viewAllEmployees();
+                    break;
+                case "View all departments":
+                    console.log("all departments");
+                    viewAllDepartments();
+                    break;
+                case "Add an employee":
+                    console.log("addition of employee");
+                    addEmployee();
+                    break;
+                case "Add a role":
+                    console.log("addition of role");
+                    addRole();
+                    break;
+                case "Add a department":
+                    console.log("addition of department");
+                    addDepartment();
+                    break;
+                case "Update employee roles":
+                    console.log("update the roles");
+                    updateEmployeeRole();
+                    break;
+                case "View all roles":
+                    console.log("roles");
+                    viewAllRoles();
+                    break;
+            }
+        })
 }
 
 function addEmployee() {
@@ -228,7 +236,9 @@ function viewAllRoles() {
 }
 
 function updateEmployeeRole() {
-    var query = "SELECT * FROM employee, roles";
+    var query = "SELECT employee_id, employee.first_name, employee.last_name, roles.roles_id, roles.title, department.department ";
+    query += "FROM department INNER JOIN roles ON department.department_id = roles.department_id ";
+    query += "INNER JOIN employee ON roles.roles_id = employee.roles_id";
     connection.query(query, function (err, res) {
         if (err) throw err;
         for (let i = 0; i < res.length; i++) {
@@ -266,3 +276,7 @@ function updateEmployeeRole() {
             })
     });
 };
+
+
+
+
